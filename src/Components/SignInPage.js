@@ -40,6 +40,7 @@ const SignInPage = ({ setToken }) => {
             conf_password: "",
           });
           alert(response.data.message);
+          localStorage.setItem("token",response.data.data.token);
         })
         .catch((err) => {
           alert(err.response.data.message);

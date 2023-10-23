@@ -2,15 +2,23 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Dashboard = ({ token }) => {
+  let newToken = "";
   const [message, setMessage] = useState("");
-
+  
+  if(localStorage.getItem("token"))
+  {
+    newToken = localStorage.getItem("token");
+  }
+  else {
+    newToken = token;
+  }
   async function getJoke() {
     try {
       const response = await axios.get(
         "https://instagram-express-app.vercel.app/api/auth/zuku",
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${newToken}`,
           },
         }
       );
@@ -28,11 +36,12 @@ const Dashboard = ({ token }) => {
           "https://instagram-express-app.vercel.app/api/auth/logout",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${newToken}`,
             },
           }
         );
         alert(response.data.message)
+        localStorage.clear();
         setMessage("");
       } catch (error) {
         

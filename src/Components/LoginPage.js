@@ -18,6 +18,7 @@ const LoginPage = ({setToken}) => {
             const response= await axios.post("https://instagram-express-app.vercel.app/api/auth/login",{"email":data.email,"password":data.password});
             setToken(response.data.data.token);
             alert(response.data.message);
+            localStorage.setItem("token" , response.data.data.token);
             setData({...data,email:"",password:""});
         } catch (error) {
             alert(error.response.data.message);
